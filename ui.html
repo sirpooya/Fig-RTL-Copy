@@ -1,0 +1,25 @@
+<style>
+   /* .hidden { display: none; } */
+</style>
+
+<div class="hidden">
+<div id="loading">
+  <textarea></textarea>
+</div>
+</div>
+
+<script>
+  var settingsData = {}
+
+  onmessage = event => {
+      if(event.data.pluginMessage.copiedText){
+          let textarea = document.getElementsByTagName("textarea")[0];
+          let copiedText = event.data.pluginMessage.copiedText;
+          textarea.value = copiedText;
+          textarea.select()
+          document.execCommand("copy");
+          parent.postMessage({ pluginMessage: { quit: true, text: copiedText } }, '*');
+      }
+  }
+
+</script>
